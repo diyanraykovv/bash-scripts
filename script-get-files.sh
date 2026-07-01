@@ -1,17 +1,20 @@
-#$/bin/bash
-#this file generates some files for a test with a certain pattern
-#this line deletes files from last try
+#!/bin/bash
+#below line deletes files from previous tries
 find . -type f -name 'L&D_1215_P_SOMETHING_SOMETHING_F_*' -delete && find . -type d -delete
-#dirs=$(date '+%Y%m')'0'$i/{'DELTA','FULL'}
 
+#dirs=$(date '+%Y%m')'0'$i/{'DELTA','FULL'}
+#put this in pattern for easyer reading
+dates=$(date +'%Y%m%d')
+datehrs=$(date +'%Y%m%d%H%M%S')
 for i in {1..9}
-do
-        #ths generates the directories it needs to be in the loop in order to change name
-        dirs=$(date '+%Y%m')'0'$i/{'DELTA','FULL'}
-        mkdir -p $dirs
-        #this generates the files inside the directory
-        touch $dirs/L\&D_1215_P_SOMETHING_SOMETHING_F_$(date +'%Y%m%d')_$(date +'%Y%m%d%H%M%S').txt
+do        
+        #this is a dir variable I did not put "$dirs"{DELTA,FULL} at the end because brace expansion does not work with variables 
+        #also put it in the loop to increment "i" variable so directories can be different
+        dirs=$(date +%Y%m)"0$i"/
+        mkdir -p "$dirs"{DELTA,FULL}
+        #creates every file
+        touch "$dirs"{DELTA,FULL}/L\&D_1215_P_SOMETHING_SOMETHING_F_"$dates"_"$datehrs".txt
         tree
-        #this is needed to generate files correctly because it uses seconds
-        sleep 1        
+     
+        sleep 1   #because I use seconds to create files
 done
