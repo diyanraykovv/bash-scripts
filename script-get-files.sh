@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #delete files from previous execution of script
-#find . -type f -name 'L&D_1215_P_SOMETHING_SOMETHING_F_*' -delete && find . -type d -delete
-
-#dirs=$(date '+%Y%m')'0'$i/{'DELTA','FULL'}
+find . -type f -name 'L&D_1215_P_SOMETHING_SOMETHING_F_*' -exec rm -rf {} \; && find . -type d -exec rm -rf {} \; 2> /dev/null
+#this works as well
+#rm -rf ./2026070*
 
 #I use these so the file generation can be more readable
 dates=$(date +'%Y%m%d')
@@ -19,4 +19,3 @@ do
         #needed for file generation since i use seconds to generate filenames
         sleep 1
 done
-
